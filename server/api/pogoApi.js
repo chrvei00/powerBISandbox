@@ -1,10 +1,10 @@
 import axios from "axios";
-import { config } from "./config.js";
+import { config } from "../config.js";
+import { updateEmployeeData } from "./pbiApi.js";
 
 axios.defaults.baseURL = "https://api-demo.poweroffice.net/";
 
 export const authorizePogoClient = async () => {
-  console.log("Authorizing pogo client...");
   return axios
     .request({
       url: "oauth/token",
@@ -19,7 +19,6 @@ export const authorizePogoClient = async () => {
     })
     .then(function (res) {
       console.log("Authorized pogo client");
-      console.log(res.data.access_token);
       return res.data.access_token;
     })
     .catch(function (err) {
@@ -28,15 +27,29 @@ export const authorizePogoClient = async () => {
     });
 };
 
-export const getPogoData = async () => {
+export const getPogoEmployees = async () => {
   return await axios
     .get("employee", {
       headers: {
         Authorization: "Bearer " + (await authorizePogoClient()),
+        "Content-Type": "application/json",
       },
     })
     .then((res) => {
-      return res;
+      const employees = [];
+      res.data.data.forEach((employee) => {
+        employees.push({
+          gender: employee.gender.toString(),
+          firstName: employee.firstName,
+          lastName: employee.lastName,
+          emailAddress: employee.emailAddress,
+          phoneNumber: employee.phoneNumber ?? "11111111",
+          dateOfBirth: employee.dateOfBirth ?? "2000-12-29",
+        });
+      });
+      console.log(employees);
+      updateEmployeeData(employees);
+      return employees;
     })
     .catch((err) => {
       console.log(err.respones);
