@@ -14,10 +14,7 @@ export const updateEmployeeData = async (data) => {
         },
       }
     )
-    .then((res) => {
-      console.log(res.status);
-    })
     .catch((err) => {
-      console.log(err);
+      console.debug(err.status);
     });
 };

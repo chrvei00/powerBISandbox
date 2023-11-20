@@ -1,8 +1,8 @@
-import DemoPage from "./pages/demo/demoPage";
+import Landing from "./pages/Landing";
 import "./App.css";
 
 function App() {
-  return <DemoPage />;
+  return <Landing />;
 }
 
 export default App;

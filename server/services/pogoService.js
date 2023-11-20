@@ -1,12 +1,7 @@
-import { getPogoEmployees, authorizePogoClient } from "../api/pogoApi.js";
+import { getPogoEmployees } from "../api/pogoApi.js";
 
-export const autorizePogoClient = async () => {
-  await authorizePogoClient();
+const updateEmployees = async () => {
+  await getPogoEmployees();
 };
 
-const update = async () => {
-  console.log("Updating pogo data");
-  console.log(await getPogoEmployees());
-};
-
-export { update };
+export { updateEmployees };
