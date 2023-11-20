@@ -22,7 +22,7 @@ export const authorizePogoClient = async () => {
       return res.data.access_token;
     })
     .catch(function (err) {
-      console.log("Failed to authorize pogo client");
+      console.debug("Failed to authorize pogo client");
       return "";
     });
 };
@@ -52,6 +52,6 @@ export const getPogoEmployees = async () => {
       return employees;
     })
     .catch((err) => {
-      console.log(err.respones);
+      console.debug(err.respones);
     });
 };
